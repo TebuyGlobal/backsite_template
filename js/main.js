@@ -16,11 +16,11 @@ $(function() {
     $.TeBuy.layout.activate();
     $.TeBuy.sideNav();
     $.TeBuy.pushMenu();
+    $.TeBuy.switch();
     // Responsive pagination
     $('.pagination').rPage();
     // input number only
     $.TeBuy.inputNumberOnly();
-
     //nicescroll plugin
     var nicescrollOption = {
         cursoropacitymax: 0.5,
@@ -211,6 +211,14 @@ $.TeBuy.datePicker = function() {
         useCurrent: false
     });
 }
+
+/* switch
+ =============================================================*/
+ $.TeBuy.switch = function() {
+    $('.switch-btn').on('click', function() {
+        $(this).is(':checked') !== true ? $(this).attr('checked', false) : $(this).attr('checked', true);
+    });
+ }
 
 /* 新增/移除 表單
 ============================================================= */
