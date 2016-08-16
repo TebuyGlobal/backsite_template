@@ -226,12 +226,8 @@ $.TeBuy.datePicker = function() {
 function addField(_this) {
     var $input = $(_this).parent('.input-group-btn').prev('input').val(), $name = $("input[name='format_name']").val();
     if ($input === "" || $name === "") {alert('請輸入規格名稱與規格項目。\n規格項目需以,符號分隔');return false};
-    var $val = $input.split(','), $html = '', $string = makeid();
-    $html += '<div class="clone-wrap cloned"><div class="row form-tight mb clone-obj"><button type="button" class="btn btn-danger btn-del-field" onclick="delField($(this))"><i class="fa fa-trash-o"></i></button><div class="col-lg-12">';
-    for (var i = 0; i < $val.length; i++) {
-        $html += '<div class="checkbox-inline"><input id="' + $string + i + '" class="styled" type="checkbox"><label for="' + $string + i + '">' + $name + "：" + $val[i] + '</label></div>'
-    }
-    $html += '</div></div></div></div>';
+    var $html = '', $string = makeid();
+    $html += '<div class="clone-wrap cloned"><div class="row form-tight mb clone-obj"><ul><li><button type="button" class="btn btn-primary" onclick="editField($(this))"><i class="fa fa-pencil"></i></button></li><li><button type="button" class="btn btn-danger" onclick="delField($(this))"><i class="fa fa-trash-o"></i></button></li></ul><div class="col-lg-3 mb-lg"><input type="text" class="form-control" placeholder="規格名稱" readonly="readonly" value="' + $name +'"></div><div class="col-lg-9 "><input type="text" class="form-control" placeholder="輸入規格項目，並以,分隔" readonly="readonly" value="' + $input +'"></div></div></div>';
     // clone
     $('.place-wrap').append($html);
     $('.format-wrap').show();
@@ -256,6 +252,22 @@ function delField($this) {
         }
     })
 };
+
+function editField($this) {
+    var $wrap = $this.closest('.clone-wrap');
+    $wrap.find('input[type="text"]').removeAttr('readonly');
+    $wrap.find('input').eq(0).focus();
+    $this.parent('li').append('<button type="button" class="btn btn-success" onclick="checkField($(this))"><i class="fa fa-check"></i></button>');
+    $this.remove();
+};
+
+function checkField($this) {
+    var $wrap = $this.closest('.clone-wrap'), $input = $wrap.find('input');
+    if ($input.eq(0).val() === "" || $input.eq(1).val() === "") {alert('規格名稱與規格項目不可為空。\n規格項目需以,符號分隔');return false};
+    $wrap.find('input[type="text"]').attr('readonly', true);
+    $this.parent('li').append('<button type="button" class="btn btn-primary" onclick="editField($(this))"><i class="fa fa-pencil"></i></button>');
+    $this.remove();
+}
 
 /* input只能填數字
 ============================================================= */
