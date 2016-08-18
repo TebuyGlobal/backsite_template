@@ -2627,6 +2627,12 @@ a .ico-rounded:active { background-color: #1ca8a3 !important; }
 .multiselect-container.dropdown-menu > li.active > a label.checkbox:after { content: '\f00c'; color: #fff; top: 10px; left: 13px; line-height: 1; font-size: 13px; }
 .multiselect-container.dropdown-menu > li.active > a label.radio:before { background: #FFF; border-width: 0; }
 .multiselect-container.dropdown-menu > li.active > a label.radio:after { content: '\f192'; color: #4a89dc; top: 15px; left: 10px; line-height: 1px; font-size: 24px; }
+.multiselect-container > .multiselect-group-clickable { position: relative; }
+.multiselect-container > .multiselect-group-clickable.active label:before { background: #4a89dc; border-width: 0; }
+.multiselect-container > .multiselect-group-clickable.active label:after { content: '\f00c'; color: #fff; top: 10px; left: 13px; line-height: 1; font-size: 13px; }
+.multiselect-container > .multiselect-group-clickable label { padding: 7px 20px 3px 35px !important; }
+.multiselect-container > .multiselect-group-clickable label:before, .multiselect-container > .multiselect-group-clickable label:after { font-family: 'FontAwesome'; font-style: normal !important; font-weight: normal !important; display: block; content: ''; position: absolute; }
+.multiselect-container > .multiselect-group-clickable label:before { background: #fff; border: 1px solid #cedee6; width: 20px; height: 20px; top: 0.4em; left: 10px; border-radius: 2px; }
 
 table.dataTable .auto-width { overflow: hidden; width: 1%; white-space: nowrap; text-align: center; }
 @media (max-width: 480px) { table.dataTable .auto-width { white-space: normal; } }
