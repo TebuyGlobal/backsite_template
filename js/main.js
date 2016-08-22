@@ -264,10 +264,10 @@ function checkField($this) {
     var $wrap = $this.closest('.clone-wrap'), $input = $wrap.find('input');//08/22測試, $spec_key = $input.eq(0).val(), $spec_value = $input.eq(1).val();
     if ($input.eq(0).val() === "" || $input.eq(1).val() === "") {alert('規格名稱與規格項目不可為空。\n規格項目需以,符號分隔');return false};
     //08/22測試
-    //$input.eq(0).val($spec_key);
-    //$input.eq(1).val($spec_value);
-    console.log($input.eq(0).val());
-    console.log($input.eq(1).val());
+    $input.eq(0).attr('value',$input.eq(0).val());
+    $input.eq(1).attr('value',$input.eq(1).val());
+    // console.log($input.eq(0).val());
+    // console.log($input.eq(1).val());
     $wrap.find('input[type="text"]').attr('readonly', true);
     $this.parent('li').append('<button type="button" class="btn btn-primary" onclick="editField($(this))"><i class="fa fa-pencil"></i></button>');
     $this.remove();
