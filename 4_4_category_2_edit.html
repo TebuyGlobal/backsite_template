@@ -59,7 +59,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label"><i class="ico-rad">*</i>品牌：</label>
                                     <div class="col-sm-4">
-                                        <select class="form-control multi-select" multiple="multiple">
+                                        <select class="form-control multi-select" multiple="multiple" name="brand">
                                             <option>Nike</option>
                                             <option>Puma</option>
                                             <option>NewBlance</option>
@@ -88,13 +88,13 @@
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label"><i class="ico-rad">*</i>排序：</label>
                                     <div class="col-sm-1">
-                                        <input type="text" class="form-control" placeholder="">
+                                        <input type="text" class="form-control" placeholder="" name="order">
                                     </div><!-- /.col-sm... -->
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label"><i class="ico-rad">*</i>狀態：</label>
                                     <div class="col-sm-4">
-                                        <input type="checkbox"  class="switch-btn" id="switch1" checked/>
+                                        <input type="checkbox"  class="switch-btn" id="switch1" checked name="status"/>
                                         <label for="switch1" data-on-label="上線" data-off-label="關閉"></label>
                                     </div><!-- /.col-sm... -->
                                 </div><!-- /.form-group -->
@@ -141,6 +141,14 @@
     <!-- Form Element Template -->
     <script>
         $.TeBuy.multiselect('.multi-select' ,'選擇品牌');
+        // 08/22測試
+        $(document).ready(function() {
+            $(".btns-footer").find('.btn-w-lg').on('click', function(event) {
+                event.preventDefault();
+                var test = $('form').serializeArray();
+                console.log(test);
+            });
+        });
     </script>
 </body>
 </html>

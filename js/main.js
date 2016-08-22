@@ -17,8 +17,6 @@ $(function() {
     $.TeBuy.sideNav();
     $.TeBuy.pushMenu();
     $.TeBuy.switch();
-    // Responsive pagination
-    $('.pagination').rPage();
     // input number only
     $.TeBuy.inputNumberOnly();
     //nicescroll plugin
@@ -143,35 +141,36 @@ $.TeBuy.sideNav = function() {
 /* bootstrap-multiselect extension
 ============================================================= */
 
-$.TeBuy.multiselect = function(target ,title) {
-
-    if ($(target).length !== 0) {
-
-        $(target).each(function() {
-            if ($(this).not(':visible')) {
-                $(this).multiselect({
-                    buttonWidth: '100%',
-                    includeSelectAllOption: true,
-                    selectAllText: '選擇全部',
-                    enableFiltering: true,
-                    filterPlaceholder: "搜尋",
-                    maxHeight: 350,
-                    buttonText: function(options, select) {
-                        if (options.length === 0) {
-                            return title;
-                        } else {
-                            var labels = [];
-                            options.each(function() {
-                                if ($(this).attr('label') !== undefined) {
-                                    labels.push($(this).attr('label'));
-                                } else {
-                                    labels.push($(this).html());
-                                }
-                            });
-                            return labels.join(', ') + '';
-                        }
+$.TeBuy.multiselect = function(target ,title, options) {
+    var defaultsOption = {
+        buttonWidth: '100%',
+        includeSelectAllOption: true,
+        selectAllText: '選擇全部',
+        enableFiltering: true,
+        filterPlaceholder: "搜尋",
+        maxHeight: 350,
+        buttonText: function(options, select) {
+            if (options.length === 0) {
+                return title;
+            } else {
+                var labels = [];
+                options.each(function() {
+                    if ($(this).attr('label') !== undefined) {
+                        labels.push($(this).attr('label'));
+                    } else {
+                        labels.push($(this).html());
                     }
                 });
+                return labels.join(', ') + '';
+            }
+        }
+    }
+
+    options = $.extend(true, {}, defaultsOption, options);
+    if ($(target).length !== 0) {
+        $(target).each(function() {
+            if ($(this).not(':visible')) {
+                $(this).multiselect(options);
             }
         });
     }
@@ -227,7 +226,7 @@ function addField(_this) {
     var $input = $(_this).parent('.input-group-btn').prev('input').val(), $name = $("input[name='format_name']").val();
     if ($input === "" || $name === "") {alert('請輸入規格名稱與規格項目。\n規格項目需以,符號分隔');return false};
     var $html = '', $string = makeid();
-    $html += '<div class="clone-wrap cloned"><div class="row form-tight mb clone-obj"><ul><li><button type="button" class="btn btn-primary" onclick="editField($(this))"><i class="fa fa-pencil"></i></button></li><li><button type="button" class="btn btn-danger" onclick="delField($(this))"><i class="fa fa-trash-o"></i></button></li></ul><div class="col-lg-3 mb-lg"><input type="text" class="form-control" placeholder="規格名稱" readonly="readonly" value="' + $name +'"></div><div class="col-lg-9 "><input type="text" class="form-control" placeholder="輸入規格項目，並以,分隔" readonly="readonly" value="' + $input +'"></div></div></div>';
+    $html += '<div class="clone-wrap cloned"><div class="row form-tight mb clone-obj"><ul><li><button type="button" class="btn btn-primary" onclick="editField($(this))"><i class="fa fa-pencil"></i></button></li><li><button type="button" class="btn btn-danger" onclick="delField($(this))"><i class="fa fa-trash-o"></i></button></li></ul><div class="col-lg-3 mb-lg"><input type="text" class="form-control" placeholder="規格名稱" readonly="readonly" value="' + $name +'" name="spec_key[]"></div><div class="col-lg-9 "><input type="text" class="form-control" placeholder="輸入規格項目，並以,分隔" readonly="readonly" value="' + $input +'"  name="spec_value[]"></div></div></div>';
     // clone
     $('.place-wrap').append($html);
     $('.format-wrap').show();
@@ -262,8 +261,13 @@ function editField($this) {
 };
 
 function checkField($this) {
-    var $wrap = $this.closest('.clone-wrap'), $input = $wrap.find('input');
+    var $wrap = $this.closest('.clone-wrap'), $input = $wrap.find('input');//08/22測試, $spec_key = $input.eq(0).val(), $spec_value = $input.eq(1).val();
     if ($input.eq(0).val() === "" || $input.eq(1).val() === "") {alert('規格名稱與規格項目不可為空。\n規格項目需以,符號分隔');return false};
+    //08/22測試
+    //$input.eq(0).val($spec_key);
+    //$input.eq(1).val($spec_value);
+    console.log($input.eq(0).val());
+    console.log($input.eq(1).val());
     $wrap.find('input[type="text"]').attr('readonly', true);
     $this.parent('li').append('<button type="button" class="btn btn-primary" onclick="editField($(this))"><i class="fa fa-pencil"></i></button>');
     $this.remove();
