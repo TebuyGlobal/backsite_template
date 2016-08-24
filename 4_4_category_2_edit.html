@@ -144,9 +144,11 @@
         // 08/22測試
         $(document).ready(function() {
             $(".btns-footer").find('.btn-w-lg').on('click', function(event) {
-                event.preventDefault();
-                var test = $('form').serializeArray();
-                console.log(test);
+                if ($('.btn-success').length !== 0) {
+                    $('.btn-success').eq(0).closest('.clone-obj').find('input[name="spec_key[]"]').focus();
+                    alert('請完成規格內容的修正');
+                    return false;
+                };
             });
         });
     </script>
