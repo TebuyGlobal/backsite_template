@@ -211,6 +211,22 @@ $.TeBuy.datePicker = function() {
     });
 }
 
+$.TeBuy.TogglePassword = function() {
+    $("#fix_pw").on('click', function(event) {
+        $( ".pw" ).toggleClass( 'hidden');
+    });
+}
+
+$.TeBuy.TabToggle = function() {
+    $(".form-manage-wrap").not(':first').hide();
+    $(".step-bar").find('a').on('click', function(event) {
+        event.preventDefault();
+        var $index = $(this).index();
+        $(this).siblings('a').removeClass('active').end().addClass('active');
+        $(".form-manage-wrap").siblings('.form-manage-wrap').stop().slideUp(200).end().eq($index).stop().slideDown();
+    });
+}
+
 /* switch
  =============================================================*/
  $.TeBuy.switch = function() {
