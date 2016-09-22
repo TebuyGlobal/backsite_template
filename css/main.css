@@ -2730,6 +2730,8 @@ table.dataTable.dtr-inline.collapsed > tbody > tr.parent > th:first-child:before
 
 .input-group.date .input-group-addon { cursor: pointer; }
 
+.kv-file-upload { display: none; }
+
 .chart .chart-heading { margin-bottom: 15px; }
 .chart .chart-heading .chart-info { padding-top: 10px; }
 .chart .chart-heading .pagination { vertical-align: middle; }
